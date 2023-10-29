@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<body>
+    <center>
+        <h3>BMI Calculator</h3>
+        <label>Weight(Kg):</label>
+        <input id="weight" type="text" placeholder="67"/>
+        <br/><br/>
+        <label>Height(m):</label>
+        <input id="height" type="text" placeholder="1.72"/>
+        <br/>
+        <span id="error" style="color: red; visibility: hidden;">Please enter valid values.</span>
+        <br/>
+        <button id="btSubmit">Submit</button>
+        <button id="btClear">Clear</button>
+        <div>
+            <p id="conclusion"></p>
+            <br/>
+            <svg width="1750" height="120" id="pointer">
+                <text x="300" y="40" class="small">Underweight</text>
+                <text x="735" y="40" class="small">Normal</text>
+                <text x="930" y="40" class="small">Overweight</text>
+                <text x="1300" y="40" class="small">Obesity</text>
+                <rect x="0" y="50" width="560" height="50" style="fill: red; opacity: 1;"/>
+                <rect x="560" y="50" width="35" height="50" style="fill: red; opacity: 0.8;"/>
+                <rect x="595" y="50" width="52.5" height="50" style="fill: yellow; opacity: 0.9;"/>
+                <rect x="647.5" y="50" width="227.5" height="50" style="fill: green; opacity: 1.0;"/>
+                <rect x="875" y="50" width="175" height="50" style="fill: yellow; opacity: 0.9;"/>
+                <rect x="1050" y="50" width="175" height="50" style="fill: red; opacity: 0.7;"/>
+                <rect x="1225" y="50" width="175" height="50" style="fill: red; opacity: 0.8;"/>
+                <rect x="1400" y="50" width="350" height="50" style="fill: red; opacity: 1.0;"/>
+                <text x="550" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >16</text>
+                <text x="585" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >17</text>
+                <text x="637.5" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400">18.5</text>
+                <text x="865" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >25</text>
+                <text x="1040" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >30</text>
+                <text x="1215" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >35</text>
+                <text x="1390" y="80" style="font-size: 18px; paint-order: stroke; stroke: white; stroke-width: 1.2px; font-weight: 400" >40</text>
+                <text x="0" y ="115" font-size="20" id="marker" style="visibility: hidden;">^</text>
+            </svg>
+        </div>
+    </center>
+    <script>
+        document.getElementById("btSubmit").onclick = function() {
+            var height = document.getElementById("height").value;
+            var weight = document.getElementById("weight").value;
+            if (height === "" || weight === "") {
+                document.getElementById("error").style.visibility = "visible";
+            } else {
+                document.getElementById("error").style.visibility = "hidden";
+                var bmi = weight/(height*height);
+                if (bmi<=0 || bmi>=50) {
+                    document.getElementById("error").style.visibility = "visible";
+                } else {
+                    document.getElementById("conclusion").innerHTML = "Your BMI is " + bmi;
+                    var pointer = bmi*35;
+                    document.getElementById("marker").setAttribute('x',pointer);
+                    document.getElementById("marker").style.visibility = "visible";
+                }
+            }
+        }
+        document.getElementById("btClear").onclick = () => {
+            document.getElementById("conclusion").innerHTML = "";
+            document.getElementById("marker").style.visibility = "hidden";
+            document.getElementById("error").style.visibility = "hidden";
+        }
+    </script>
+</body>
+</html>
